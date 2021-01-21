@@ -42,9 +42,11 @@ public class Arbre {
 				//L'utilisateur a terminé de saisir son jeu d'entrée 
 				isStop = true;
 				//Affichage du jeu d'entrée 
+				System.out.println("Voici votre jeu d'entrée : ");
 				System.out.println(liste);
 				//Affiche tous les noeuds de notre arbre 
 				afficherNoeuds(listeValeur);
+				trouverRacine(liste);
 			}
 		}
 		
@@ -60,5 +62,49 @@ public class Arbre {
 		//Supprime les doublons de notre liste
 		Set<Integer> listeNoeuds = new HashSet<Integer>(listeValeur);
 		System.out.println(listeNoeuds);
+	}
+	
+	private static void trouverRacine(ArrayList<ArrayList<Integer>> liste) {
+		//Trouver la racine de l'arbre
+		//Information : La racine de notre arbre est uniquement Pere de ce fait
+		//				elle ne peut être présente dans tabValeurFils
+
+		int[] tabValeurFils = new int[liste.size()];
+		String racineArbre = "";
+		//On parcourt notre liste 
+		for (int i = 0; i < liste.size(); i++) {
+			//On commence à j=1 car on veut récupérer la valeurFils de notre liste [valeurPere, valeurFils]
+			for (int j = 1; j < liste.get(i).size(); j++) {
+				//Enregistre la valeurFils dans notre tableau
+				tabValeurFils[i] = liste.get(i).get(j);
+			}
+		}
+		//On parcourt à nouveau notre tableau 
+		for (int i = 0; i < liste.size(); i++) {
+			//On parcourt nos valeurPere
+			for (int j = 0; j < liste.get(i).size()-1; j++) {
+				int dontMatch = 0;
+				//On parcourt nos valeurFils
+				for (int k = 0; k < tabValeurFils.length; k++) {
+					//Si pas de concordance entre les valeursFils et Pere 
+					if (tabValeurFils[k] != liste.get(i).get(j)) {
+						dontMatch++;
+						if(dontMatch == tabValeurFils.length) {
+							//La Racine aura forcement aucune concordance avec le tableau de valeurFils
+							racineArbre = liste.get(i).get(j).toString();
+						}
+					}
+				}
+			}
+		}
+		System.out.println("La racine de l'arbre est : " + racineArbre);
+	}
+	
+	private static void trouverFeuilles() {
+		//trouver les feuilles de l'arbre 
+	}
+	
+	private static void trouverRangValeur(int valeur) {
+		//Trouve le rang d'une valeur dans l'arbre
 	}
 }
