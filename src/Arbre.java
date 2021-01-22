@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -47,6 +48,7 @@ public class Arbre {
 				//Affiche tous les noeuds de notre arbre 
 				afficherNoeuds(listeValeur);
 				trouverRacine(liste);
+				trouverFeuilles(liste);
 			}
 		}
 		
@@ -100,8 +102,47 @@ public class Arbre {
 		System.out.println("La racine de l'arbre est : " + racineArbre);
 	}
 	
-	private static void trouverFeuilles() {
+	private static void trouverFeuilles(ArrayList<ArrayList<Integer>> liste) {
 		//trouver les feuilles de l'arbre 
+		//Information : Les feuilles de l'arbre sont forcement que Fils 
+		int[] tabValeurPere = new int[liste.size()];
+		List<Integer> listFeuilleArbre = new ArrayList<Integer>();
+		//On parcourt notre liste 
+		for (int i = 0; i < liste.size(); i++) {
+			//On commence à j=0 car on veut récupérer la valeurPere de notre liste [valeurPere, valeurFils]
+			for (int j = 0; j < liste.get(i).size()-1; j++) {
+				//Enregistre la valeurFils dans notre tableau
+				tabValeurPere[i] = liste.get(i).get(j);
+			}
+		}
+		//Parcour notre liste
+		for (int i = 0; i < liste.size(); i++) {
+			//Parcour nos ValeurFils
+			for (int j = 1; j < liste.get(i).size(); j++) {
+				int dontMatch = 0;
+				for (int k = 0; k < tabValeurPere.length; k++) {
+					if(tabValeurPere[k] != liste.get(i).get(j)) {
+						dontMatch++;
+						if(dontMatch == tabValeurPere.length) {
+							listFeuilleArbre.add(liste.get(i).get(j));
+						}
+					}
+				}
+			}
+		}
+		System.out.println("Le / Les feuille(s) de l'arbre est / sont : ");
+		for (int i = 0; i < listFeuilleArbre.size(); i++) {
+			System.out.print(listFeuilleArbre.get(i) + " ");;
+		}
+		
+	}
+	
+	private static void getHauteurArbre() {
+		// But : Pour chaque feuille, on parcour les valeur fils -> père -> fils -> père ... 
+		//       jusqu'a trouver la racine en incrementant à chaque fois qu'on trouve le père 
+		//		 la valeur la plus haute sera donc la hauteur de notre arbre. 
+		
+		
 	}
 	
 	private static void trouverRangValeur(int valeur) {
