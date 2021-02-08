@@ -61,9 +61,12 @@ public class Arbre {
 			}while(!saisieFilsNOK);
 			//Ajoute à notre liste les valeurs récupérées
 			liste.add(new ArrayList<>(Arrays.asList(valeurPere, valeurFils))); 
+			
+			
+			
 			System.out.println("Nouvelle saisie ? (O/N)");
 			//Récuperd le feedback utilisateur. 
-			char feedback = sc.next().toUpperCase().charAt(0);
+			char feedback = sc.nextLine().toUpperCase().charAt(0);
 			if(feedback == 'N') {
 				//L'utilisateur a terminé de saisir son jeu d'entrée 
 				isStop = true;
